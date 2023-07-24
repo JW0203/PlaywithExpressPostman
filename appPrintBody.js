@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3010;
+const port = 3011;
 
 app.use(express.json()) //for parsing application/json
 
@@ -15,7 +15,7 @@ app.get('/users/1', (req, res)=>{
     let userEmail = req.body["email"]
     res.status(200).send(`User name is ${userName}, 
     User's email is ${userEmail}`);
-    // res.status(200).send(req.body);
+    console.log(req.header(('qwe')))
     console.log(req.body)
 })
 
