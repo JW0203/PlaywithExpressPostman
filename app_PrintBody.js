@@ -10,6 +10,7 @@ app.get('/', (req, res)=>{
     });
 })
 
+// res can use only one time.
 app.get('/users/1', (req, res)=>{
     let userName = req.body["name"]
     let userEmail = req.body["email"]
@@ -17,6 +18,7 @@ app.get('/users/1', (req, res)=>{
     User's email is ${userEmail}`);
     console.log(req.header(('qwe')))
     console.log(req.body)
+    // res.status(200).send(req.body); // <-- error
 })
 
 
