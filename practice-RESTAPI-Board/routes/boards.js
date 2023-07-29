@@ -43,9 +43,11 @@ router.get("/search", (req, res) => {
 router.patch("/:id/:title/:content", (req,res)=>{
     console.log(req.params);
     console.log(req.body);
-    req.body["title"] = req.params.title;
-    req.body["content"] = req.params.content;
-    res.status(200).send(req.body);
+    if (req.params.id === req.body["id"]) {
+        req.body["title"] = req.params.title;
+        req.body["content"] = req.params.content;
+        res.status(200).send(req.body);
+    }else res.status(404).send(`There is no post with id: ${req.params.id }.`);
 });
 
 router.post("/:id/comments/:comment", (req,res)=>{
@@ -54,20 +56,20 @@ router.post("/:id/comments/:comment", (req,res)=>{
         req.body.postId = req.params.comment;
         res.status(201).send(req.body)
         res.result()
-    }else console.log(`there is no post with id: ${req.params.id }.`)
+    }else res.status(404).send(`There is no post with id: ${req.params.id }.`);
 
 })
 
-router.delete("/:id",(req, res) =>{
+router.delete("/:id",(req, res) => {
     // delete req.body.postId; //global??
     console.log(req.body);
+    if (req.params.id === req.body["id"]){
+        const newBody = withoutProperty(req.body,"postId")
+        console.log(newBody);
+        res.status(204).send();
+    }else res.status(404).send(`There is no post with id: ${req.params.id }.`);
 
-    const newBody = withoutProperty(req.body,"postId")
-    console.log(newBody);
-
-    res.status(204).send();
-
-})
+});
 
 
 
